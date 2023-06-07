@@ -3,8 +3,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Future<dynamic> sendMessageToChatGPT(String message) async {
-  var apiKey = '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';
-  var apiUrl = 'https://api.openai.com/v1/engines/text-davinci-003/completions';
+  // var apiKey = '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'; //key1
+  var apiKey = "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"; //key2
+  var apiUrl = 'https://api.openai.com/v1/chat/completions';
 
   var headers = {
     'Content-Type': 'application/json',
@@ -12,8 +13,11 @@ Future<dynamic> sendMessageToChatGPT(String message) async {
   };
 
   var body = {
-    'prompt': 'User: $message\nAssistant:',
-    'max_tokens': 50,
+    'model': 'gpt-3.5-turbo',
+    'messages': [
+      {'role': 'system', 'content': 'You are a helpful assistant.'},
+      {'role': 'user', 'content': message},
+    ],
   };
 
   var response = await http.post(Uri.parse(apiUrl),
@@ -21,7 +25,7 @@ Future<dynamic> sendMessageToChatGPT(String message) async {
 
   if (response.statusCode == 200) {
     var jsonResponse = json.decode(response.body);
-    var msg = jsonResponse['choices'][0]['text'];
+    var msg = jsonResponse['choices'][0]['message']['content'];
     return msg;
   }
   // Return an error message if something went wrong

@@ -41,7 +41,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   //function for sending messages
   void _sendMessage() async {
-    ChatMessage message = ChatMessage(text: _controller.text, sender: "user");
+    ChatMessage message = ChatMessage(msg: _controller.text, sender: "user");
     //inserting the message in the message list
     setState(() {
       _messages.insert(0, message);
@@ -51,9 +51,9 @@ class _ChatScreenState extends State<ChatScreen> {
     _controller.clear();
 
     //sending only text of the message
-    var msg = await sendMessageToChatGPT(message.text);
+    var msg = await sendMessageToChatGPT(message.msg);
     setState(() {
-      _messages.insert(0, ChatMessage(text: msg, sender: "ChatGPT"));
+      _messages.insert(0, ChatMessage(msg: msg, sender: "ChatGPT"));
     });
   }
 
