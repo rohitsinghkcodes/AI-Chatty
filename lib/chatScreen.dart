@@ -1,5 +1,10 @@
+import 'dart:async';
+
+import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
+import 'package:chattty/api_services.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+// import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 
 import 'chatMessage.dart';
 
@@ -17,8 +22,25 @@ class _ChatScreenState extends State<ChatScreen> {
   //Chat message list
   final List<ChatMessage> _messages = [];
 
+  //declaring openAI
+  late OpenAI openAI;
+
+  StreamSubscription? _subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    // openAI = OpenAI.instance;
+  }
+
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
+  }
+
   //function for sending messages
-  void _sendMessage() {
+  void _sendMessage() async {
     ChatMessage message = ChatMessage(text: _controller.text, sender: "user");
     //inserting the message in the message list
     setState(() {
@@ -27,6 +49,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
     //clearing the text field after sending message
     _controller.clear();
+
+    //sending only text of the message
+    var msg = await sendMessageToChatGPT(message.text);
+    setState(() {
+      _messages.insert(0, ChatMessage(text: msg, sender: "ChatGPT"));
+    });
   }
 
   //text field for sending messages
