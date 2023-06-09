@@ -28,7 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
         gradient: LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
-          colors: [Color(0xFF8C52FF), Color(0xFF5CE1E6)],
+          // colors: [Color(0xFF8C52FF), Color(0xFF5CE1E6)],
+          colors: [
+            Color(0xFF3B007D),
+            Color(0xFF7742BE)],
         ),
       ),
       child: Scaffold(
@@ -47,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                 ),
                 const Text(
-                  'Powered by ChatGPT',
+                  'Developed by Rohit Kumar Singh',
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.white70),
                 ),

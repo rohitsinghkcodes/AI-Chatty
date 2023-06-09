@@ -1,12 +1,10 @@
-import 'dart:async';
-
-import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:chattty/Helper/api_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:velocity_x/velocity_x.dart';
-// import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 
+import '../Helper/Constants.dart';
 import '../Helper/chatMessage.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -33,21 +31,30 @@ class _ChatScreenState extends State<ChatScreen> {
   //function for sending messages
   void _sendMessage() async {
     ChatMessage message = ChatMessage(msg: _controller.text, sender: "user");
-    //inserting the message in the message list
-    setState(() {
-      _messages.insert(0, message);
-      _isTyping = true;
-    });
-
-    //clearing the text field after sending message
-    _controller.clear();
-
-    //sending only text of the message
-    var msg = await sendMessageToChatGPT(message.msg);
-    setState(() {
-      _isTyping = false;
-      _messages.insert(0, ChatMessage(msg: msg, sender: "ChatGPT"));
-    });
+    if (message.msg.isNotEmpty) {
+      //inserting the message in the message list
+      setState(() {
+        _messages.insert(0, message);
+        _isTyping = true;
+      });
+      //clearing the text field after sending message
+      _controller.clear();
+      //sending only text of the message
+      var msg = await sendMessageToChatGPT(message.msg);
+      setState(() {
+        _isTyping = false;
+        _messages.insert(0, ChatMessage(msg: msg, sender: "ChatGPT"));
+      });
+    } else {
+      Fluttertoast.showToast(
+          msg: "Text field can't be empty!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black54,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
   }
 
   //text field for sending messages
@@ -55,62 +62,85 @@ class _ChatScreenState extends State<ChatScreen> {
     return Row(
       children: [
         Expanded(
+          flex: 8,
           child: TextField(
+            style: const TextStyle(color: Colors.white),
             controller: _controller,
             onSubmitted: (value) => _sendMessage(),
-            decoration:
-                const InputDecoration.collapsed(hintText: "Send a message"),
+            decoration: kTextFieldDecoration,
           ),
         ),
-        IconButton(
-          onPressed: () => _sendMessage(),
-          icon: const Icon(Icons.send),
+        const SizedBox(
+          width: 10.0,
         ),
+        Expanded(
+          child: MaterialButton(
+            onPressed: () => _sendMessage(),
+            color: const Color(0xFF00A67E),
+            textColor: Colors.white,
+            shape: const CircleBorder(),
+            padding: const EdgeInsets.all(10),
+            child: const Icon(
+              Icons.send_rounded,
+              size: 24,
+            ),
+          ),
+        )
       ],
-    ).px16();
+    ).px12();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFC884F3),
-      appBar: AppBar(
-        title: const Center(
-          child: Text(
-            "AI Chatty",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF000000), Color(0xFF281640)],
         ),
-        backgroundColor: const Color(0xFF8D0892),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Flexible(
-              child: ListView.builder(
-                reverse: true,
-                padding: Vx.m8,
-                itemCount: _messages.length,
-                itemBuilder: (context, index) {
-                  return _messages[index];
-                },
-              ),
+      child: Scaffold(
+        // backgroundColor: const Color(0xFFC884F3),
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: const Center(
+            child: Text(
+              "AI Chatty",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
             ),
-            _isTyping == true
-                ? const SpinKitThreeBounce(
-                    color: Colors.white,
-                    size: 20.0,
-                  )
-                : const Divider(
-                    height: 1.0,
-                  ),
-            Container(
-              decoration: BoxDecoration(
-                color: context.cardColor,
+          ),
+          // backgroundColor: const Color(0xFF8D0892)
+          backgroundColor: const Color(0xFF000000),
+        ),
+        body: SafeArea(
+          child: Column(
+            children: [
+              Flexible(
+                child: ListView.builder(
+                  reverse: true,
+                  padding: Vx.m8,
+                  itemCount: _messages.length,
+                  itemBuilder: (context, index) {
+                    return _messages[index];
+                  },
+                ),
               ),
-              child: _buildTextComposer(),
-            ),
-          ],
+              _isTyping == true
+                  ? const SpinKitThreeBounce(
+                      color: Colors.white,
+                      size: 20.0,
+                    )
+                  : const SizedBox(),
+              Container(
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                child: _buildTextComposer(),
+              ),
+            ],
+          ),
         ),
       ),
     );
