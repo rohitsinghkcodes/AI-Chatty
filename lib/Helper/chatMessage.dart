@@ -29,8 +29,8 @@ class ChatMessage extends StatelessWidget {
                   Radius.circular(16),
                 ),
                 color: sender == "ChatGPT"
-                    ? Colors.greenAccent
-                    : const Color(0xFFE48BF6),
+                    ? const Color(0xFF068D73)
+                    : const Color(0xFF8D0892),
               ),
               padding: const EdgeInsets.fromLTRB(12.0, 8.0, 8.0, 12.0),
               child: Container(
@@ -54,6 +54,7 @@ class ChatMessage extends StatelessWidget {
                     ),
                     Text(
                       msg,
+                      style: const TextStyle(color: Color(0xFFE5E5E5)),
                     ),
                   ],
                 ),

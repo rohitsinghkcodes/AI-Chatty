@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
-import 'package:chattty/api_services.dart';
+import 'package:chattty/Helper/api_services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:velocity_x/velocity_x.dart';
 // import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 
-import 'chatMessage.dart';
+import '../Helper/chatMessage.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -22,21 +23,11 @@ class _ChatScreenState extends State<ChatScreen> {
   //Chat message list
   final List<ChatMessage> _messages = [];
 
-  //declaring openAI
-  late OpenAI openAI;
-
-  StreamSubscription? _subscription;
+  bool _isTyping = false;
 
   @override
   void initState() {
     super.initState();
-    // openAI = OpenAI.instance;
-  }
-
-  @override
-  void dispose() {
-    _subscription?.cancel();
-    super.dispose();
   }
 
   //function for sending messages
@@ -45,6 +36,7 @@ class _ChatScreenState extends State<ChatScreen> {
     //inserting the message in the message list
     setState(() {
       _messages.insert(0, message);
+      _isTyping = true;
     });
 
     //clearing the text field after sending message
@@ -53,6 +45,7 @@ class _ChatScreenState extends State<ChatScreen> {
     //sending only text of the message
     var msg = await sendMessageToChatGPT(message.msg);
     setState(() {
+      _isTyping = false;
       _messages.insert(0, ChatMessage(msg: msg, sender: "ChatGPT"));
     });
   }
@@ -80,6 +73,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFC884F3),
       appBar: AppBar(
         title: const Center(
           child: Text(
@@ -87,7 +81,7 @@ class _ChatScreenState extends State<ChatScreen> {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
           ),
         ),
-        backgroundColor: Colors.purple,
+        backgroundColor: const Color(0xFF8D0892),
       ),
       body: SafeArea(
         child: Column(
@@ -102,6 +96,14 @@ class _ChatScreenState extends State<ChatScreen> {
                 },
               ),
             ),
+            _isTyping == true
+                ? const SpinKitThreeBounce(
+                    color: Colors.white,
+                    size: 20.0,
+                  )
+                : const Divider(
+                    height: 1.0,
+                  ),
             Container(
               decoration: BoxDecoration(
                 color: context.cardColor,
