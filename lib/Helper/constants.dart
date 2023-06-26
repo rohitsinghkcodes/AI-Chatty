@@ -13,3 +13,7 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(35.0)),
   ),
 );
+
+TextStyle content = const TextStyle(fontSize: 14, color: Colors.white70);
+TextStyle headingStyle = const TextStyle(
+    fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blueGrey);

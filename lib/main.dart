@@ -1,5 +1,5 @@
-import 'package:chattty/Screens/chatScreen.dart';
-import 'package:chattty/Screens/splashScreen.dart';
+import 'package:chattty/Screens/chat_screen.dart';
+import 'package:chattty/Screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -1,11 +1,11 @@
 import 'package:chattty/Helper/api_services.dart';
+import 'package:chattty/Screens/about_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../Helper/Constants.dart';
-import '../Helper/chatMessage.dart';
-import '../Helper/popUpMenuHelper.dart';
+import '../Helper/constants.dart';
+import '../Helper/chat_message.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -83,6 +83,16 @@ class _ChatScreenState extends State<ChatScreen> {
         )
       ],
     ).px12();
+  }
+
+//moreOptClickListener
+  void moreOptClickListener(String value) {
+    switch (value) {
+      case 'About':
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const AboutUs()));
+        break;
+    }
   }
 
   @override

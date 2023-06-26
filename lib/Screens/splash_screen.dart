@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import 'chatScreen.dart';
+import 'chat_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   // static const id = "splash_screen";
@@ -29,9 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           // colors: [Color(0xFF8C52FF), Color(0xFF5CE1E6)],
-          colors: [
-            Color(0xFF3B007D),
-            Color(0xFF7742BE)],
+          colors: [Color(0xFF3B007D), Color(0xFF7742BE)],
         ),
       ),
       child: Scaffold(
