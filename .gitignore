@@ -1,3 +1,6 @@
+lib/apiKey.dart
+
+
 # Miscellaneous
 *.class
 *.log
@@ -43,9 +46,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-<<<<<<< HEAD
-/lib/Helper/Constants.dart
-=======
 
-/lib/Helper/api_services.dart
->>>>>>> 016b189b9c2d30de8376e4c12465af6c9e20ae43

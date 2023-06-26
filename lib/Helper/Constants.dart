@@ -13,6 +13,3 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(35.0)),
   ),
 );
-
-//API key for chatGPT
-var apiKey = "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";
