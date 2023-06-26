@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'Constants.dart';
+
 Future<dynamic> sendMessageToChatGPT(String message) async {
   // var apiKey = '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'; //key1
-  var apiKey = "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"; //key2
+  //key2
   var apiUrl = 'https://api.openai.com/v1/chat/completions';
 
   var headers = {

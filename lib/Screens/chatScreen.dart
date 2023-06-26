@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import '../Helper/Constants.dart';
 import '../Helper/chatMessage.dart';
+import '../Helper/popUpMenuHelper.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -22,11 +22,6 @@ class _ChatScreenState extends State<ChatScreen> {
   final List<ChatMessage> _messages = [];
 
   bool _isTyping = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   //function for sending messages
   void _sendMessage() async {
@@ -101,15 +96,30 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
       child: Scaffold(
-        // backgroundColor: const Color(0xFFC884F3),
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: const Center(
-            child: Text(
-              "AI Chatty",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          actions: <Widget>[
+            PopupMenuButton<String>(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              color: const Color(0xFFFFFFFF),
+              onSelected: moreOptClickListener,
+              itemBuilder: (BuildContext context) {
+                return {'About'}.map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(
+                      choice,
+                    ),
+                  );
+                }).toList();
+              },
             ),
+          ],
+          title: const Text(
+            "AI Chatty",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
           ),
           // backgroundColor: const Color(0xFF8D0892)
           backgroundColor: const Color(0xFF000000),
