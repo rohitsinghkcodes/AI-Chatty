@@ -9,7 +9,7 @@ Future<dynamic> sendMessageToChatGPT(String message) async {
 
   var headers = {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer $apiKey',
+    'Authorization': 'Bearer $k$k2',
   };
 
   var body = {
