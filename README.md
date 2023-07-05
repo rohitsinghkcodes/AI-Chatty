@@ -10,6 +10,12 @@ AI Chatty is an interactive chatbot application built using artificial intellige
 - **Multiple Integration Options:** The application can be integrated into various platforms and systems, including websites, messaging apps, or any other interface that supports API communication.
 - **Extensible Architecture:** The project is designed with modularity in mind, making it easy to extend and enhance the chatbot's capabilities by adding new features or integrating with additional AI models or services.
 
+## Download App
+
+You can download the latest version of our app using the links below:
+
+- [Download for Android](https://github.com/rohitsinghkcodes/AI-Chatty/releases/tag/AI_Chatty_beta_v2.0)
+
 ## Getting Started
 
 To get started with AI Chatty Flutter project, follow the instructions below:
