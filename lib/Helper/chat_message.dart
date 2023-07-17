@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class ChatMessage extends StatelessWidget {
-  const ChatMessage({super.key, required this.msg, required this.sender});
+class ChatMessage extends StatefulWidget {
+  const ChatMessage(
+      {super.key,
+      required this.msg,
+      required this.sender,
+      required this.userAvatar});
 
   final String msg;
   final String sender;
+  final String userAvatar;
 
+  @override
+  State<ChatMessage> createState() => _ChatMessageState();
+}
+
+class _ChatMessageState extends State<ChatMessage> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,9 +27,9 @@ class ChatMessage extends StatelessWidget {
             margin: const EdgeInsets.only(right: 12.0),
             child: CircleAvatar(
               radius: 18.0,
-              backgroundImage: sender == "ChatGPT"
-                  ? const AssetImage('images/gpt.png')
-                  : const AssetImage('images/person.png'),
+              backgroundImage: widget.sender == "ChatGPT"
+                  ? const AssetImage("images/gpt.png")
+                  : AssetImage('images/user_${widget.userAvatar}.png'),
             ),
           ),
           Expanded(
@@ -28,7 +38,7 @@ class ChatMessage extends StatelessWidget {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(16),
                   ),
-                  color: sender == "ChatGPT"
+                  color: widget.sender == "ChatGPT"
                       ? const Color(0xFF00A67E)
                       : const Color(0xFF7900B5)
                   // const Color(0xFFA102A9),
@@ -42,7 +52,8 @@ class ChatMessage extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () async {
-                        await Clipboard.setData(ClipboardData(text: msg));
+                        await Clipboard.setData(
+                            ClipboardData(text: widget.msg));
                       },
                       child: const Align(
                         alignment: Alignment.centerRight,
@@ -54,7 +65,7 @@ class ChatMessage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      msg,
+                      widget.msg,
                       style: const TextStyle(color: Colors.white),
                     ),
                   ],

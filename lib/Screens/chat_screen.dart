@@ -3,6 +3,7 @@ import 'package:chattty/Screens/about_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../Helper/constants.dart';
 import '../Helper/chat_message.dart';
@@ -21,24 +22,49 @@ class _ChatScreenState extends State<ChatScreen> {
   //Chat message list
   final List<ChatMessage> _messages = [];
 
+  //var to store the last answer by chat GPT(api response)
+  String lastMsg = "";
+
+  //variable to store api response
+  String msg = "";
+
   bool _isTyping = false;
 
   //function for sending messages
   void _sendMessage() async {
-    ChatMessage message = ChatMessage(msg: _controller.text, sender: "user");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? imagePath = prefs.getString('userAvatar');
+    String userAvatar = imagePath ?? 'male';
+
+    ChatMessage message = ChatMessage(
+        msg: _controller.text, sender: "user", userAvatar: userAvatar);
     if (message.msg.isNotEmpty) {
-      //inserting the message in the message list
+      //inserting the message/question asked to the Chat GPT in the message list
       setState(() {
         _messages.insert(0, message);
         _isTyping = true;
       });
+
       //clearing the text field after sending message
       _controller.clear();
-      //sending only text of the message
-      var msg = await sendMessageToChatGPT(message.msg);
+
+      lastMsg = msg;
+      // print("********** \n${last_msg}\n******");
+
+      String newMsg = "$lastMsg. ${message.msg}";
+
+      //sending only text of the command/questions to the chat gpt api handler
+      msg = await sendMessageToChatGPT(newMsg);
+
       setState(() {
         _isTyping = false;
-        _messages.insert(0, ChatMessage(msg: msg, sender: "ChatGPT"));
+        _messages.insert(
+            0,
+            ChatMessage(
+              msg: msg,
+              sender: "ChatGPT",
+              userAvatar: "gpt",
+            ));
       });
     } else {
       Fluttertoast.showToast(
@@ -159,6 +185,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
                 child: _buildTextComposer(),
               ),
+              const SizedBox(height: 8),
             ],
           ),
         ),

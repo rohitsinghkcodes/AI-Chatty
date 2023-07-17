@@ -17,3 +17,5 @@ const kTextFieldDecoration = InputDecoration(
 TextStyle content = const TextStyle(fontSize: 14, color: Colors.white70);
 TextStyle headingStyle = const TextStyle(
     fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blueGrey);
+
+const userArtLinks = ['male', 'female'];

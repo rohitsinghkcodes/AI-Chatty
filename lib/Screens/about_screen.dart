@@ -44,49 +44,70 @@ class AboutUs extends StatelessWidget {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          controller: scrollController,
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(
-                    'AI Chatty is an interactive chatbot application built using artificial intelligence techniques. This Flutter project leverages the power of natural language processing to engage in conversations and provide responses to user input. It aims to showcase the capabilities of AI in the field of conversational agents through a mobile application.',
-                    style: content),
-              ),
-              const SizedBox(height: 20),
-              Text("Features", style: headingStyle),
-              const SizedBox(height: 1),
-              Padding(
-                padding: const EdgeInsets.only(left: 1),
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                controller: scrollController,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("🔹 Interactive Conversations", style: content),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                          'AI Chatty is an interactive chatbot application built using artificial intelligence techniques. This Flutter project leverages the power of natural language processing to engage in conversations and provide responses to user input. It aims to showcase the capabilities of AI in the field of conversational agents through a mobile application.',
+                          style: content),
+                    ),
+                    const SizedBox(height: 20),
+                    Text("Features", style: headingStyle),
                     const SizedBox(height: 1),
-                    Text("🔹 Natural Language Processing", style: content),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 1),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("🔹 Interactive Conversations", style: content),
+                          const SizedBox(height: 1),
+                          Text("🔹 Natural Language Processing",
+                              style: content),
+                          const SizedBox(height: 1),
+                          Text("🔹 Customizable Responses: ", style: content),
+                          const SizedBox(height: 1),
+                          Text("🔹 Multiple Integration Options",
+                              style: content),
+                          const SizedBox(height: 1),
+                          Text("🔹 Extensible Architecture", style: content),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text("License", style: headingStyle),
                     const SizedBox(height: 1),
-                    Text("🔹 Customizable Responses: ", style: content),
-                    const SizedBox(height: 1),
-                    Text("🔹 Multiple Integration Options", style: content),
-                    const SizedBox(height: 1),
-                    Text("🔹 Extensible Architecture", style: content),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                          "AI Chatty Flutter project is released under the 'MIT License'. Feel free to modify and distribute the code as per the terms of the license.",
+                          style: content),
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
-              Text("License", style: headingStyle),
-              const SizedBox(height: 1),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
+            ),
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(0, 12, 0, 8),
                 child: Text(
-                    "AI Chatty Flutter project is released under the 'MIT License'. Feel free to modify and distribute the code as per the terms of the license.",
-                    style: content),
+                  'D E V E L O P E D . B Y . R O H I T',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white70,
+                      fontSize: 12.0),
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

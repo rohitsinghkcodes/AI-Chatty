@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'chat_screen.dart';
+import 'choose_avatar.dart';
 
 class SplashScreen extends StatefulWidget {
   // static const id = "splash_screen";
@@ -29,7 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           // colors: [Color(0xFF8C52FF), Color(0xFF5CE1E6)],
-          colors: [Color(0xFF3B007D), Color(0xFF7742BE)],
+          colors: [Color(0xFF004156),
+            Color(0xFF004C6F)],
         ),
       ),
       child: Scaffold(
@@ -44,13 +47,15 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: Container(
                     padding: const EdgeInsets.all(30),
                     height: 40,
-                    child: Image.asset('images/logo_main.png'),
+                    child: Image.asset('images/user_male.png'),
                   ),
                 ),
                 const Text(
-                  'Developed by Rohit Kumar Singh',
+                  'D E V E L O P E D . B Y . R O H I T',
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white70),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white70,
+                      fontSize: 12.0),
                 ),
               ],
             ),
@@ -67,9 +72,19 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void navigateUser() async {
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => const ChatScreen()));
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var user = prefs.getString('userAvatar');
+
+    if (user == null) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => const ChooseAvatar()));
+    } else {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => const ChatScreen()));
+    }
   }
 }
