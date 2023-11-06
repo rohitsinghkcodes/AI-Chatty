@@ -14,7 +14,7 @@ AI Chatty is an interactive chatbot application built using artificial intellige
 
 You can download the latest version of our app using the links below:
 
-- [Download for Android](https://github.com/rohitsinghkcodes/AI-Chatty/releases/download/AI_Chatty_beta_v2.0/AI_Chatty_beta_v2.0.apk)
+- [Download for Android](https://github.com/rohitsinghkcodes/AI-Chatty/releases/download/AI_Chatty/AI.chatty_app-arm64-v8a-release.apk)
 
 ## Getting Started
 
