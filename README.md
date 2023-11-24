@@ -10,11 +10,29 @@ AI Chatty is an interactive chatbot application built using artificial intellige
 - **Multiple Integration Options:** The application can be integrated into various platforms and systems, including websites, messaging apps, or any other interface that supports API communication.
 - **Extensible Architecture:** The project is designed with modularity in mind, making it easy to extend and enhance the chatbot's capabilities by adding new features or integrating with additional AI models or services.
 
-## Download App
+<br>
+
+## Screens
+
+<p float="left">
+  <img src="https://github.com/rohitsinghkcodes/RESOURCES/blob/master/Ai%20Chatty/img1.png" width="200" />
+  <img src="https://github.com/rohitsinghkcodes/RESOURCES/blob/master/Ai%20Chatty/img2.png" width="200" />
+  <img src="https://github.com/rohitsinghkcodes/RESOURCES/blob/master/Ai%20Chatty/img3.png" width="200" />
+  <img src="https://github.com/rohitsinghkcodes/RESOURCES/blob/master/Ai%20Chatty/img4.png" width="200" />
+  <img src="https://github.com/rohitsinghkcodes/RESOURCES/blob/master/Ai%20Chatty/img5.png" width="200" />
+  <img src="https://github.com/rohitsinghkcodes/RESOURCES/blob/master/Ai%20Chatty/img6.png" width="200" />
+  <img src="https://github.com/rohitsinghkcodes/RESOURCES/blob/master/Ai%20Chatty/img7.png" width="200" />
+</p>
+
+<br>
+
+## Downloads
 
 You can download the latest version of our app using the links below:
 
-- [Download for Android](https://github.com/rohitsinghkcodes/AI-Chatty/releases/download/AI_Chatty/AI.chatty_app-arm64-v8a-release.apk)
+- [Download for Android](https://github.com/rohitsinghkcodes/AI-Chatty/releases/download/AI_chatty_apk_v_3.0/app-arm64-v8a-release.apk)
+
+<br>
 
 ## Getting Started
 
