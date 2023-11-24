@@ -97,7 +97,8 @@ class _ChatScreenState extends State<ChatScreen> {
         Expanded(
           child: MaterialButton(
             onPressed: () => _sendMessage(),
-            color: const Color(0xFF00A67E),
+            // color: const Color(0xFF00A67E),
+            color: Colors.deepPurple,
             textColor: Colors.white,
             shape: const CircleBorder(),
             padding: const EdgeInsets.all(10),
