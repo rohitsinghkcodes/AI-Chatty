@@ -18,4 +18,4 @@ TextStyle content = const TextStyle(fontSize: 14, color: Colors.white70);
 TextStyle headingStyle = const TextStyle(
     fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blueGrey);
 
-const userArtLinks = ['male', 'female'];
+const userArtLinks = ['1', '2', '3', '4', '5', '6', '7', '8'];

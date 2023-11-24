@@ -31,8 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           // colors: [Color(0xFF8C52FF), Color(0xFF5CE1E6)],
-          colors: [Color(0xFF004156),
-            Color(0xFF004C6F)],
+          colors: [Color(0xFF004156), Color(0xFF004C6F)],
         ),
       ),
       child: Scaffold(

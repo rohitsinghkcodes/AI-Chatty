@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:swipe_deck/swipe_deck.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Helper/constants.dart';
 import 'chat_screen.dart';
@@ -16,6 +15,7 @@ class ChooseAvatar extends StatefulWidget {
 
 class _ChooseAvatarState extends State<ChooseAvatar> {
   var userDp;
+  int selectedCard = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -45,67 +45,94 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                 )),
               ],
             ),
-            actions: [
-              Opacity(
-                opacity: 0,
-                child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: const Icon(Icons.ac_unit_rounded)),
-              ),
-            ],
           ),
           body: Column(
             children: [
               Expanded(
-                flex: 2,
-                child: SwipeDeck(
-                    aspectRatio: 1,
-                    startIndex: 0,
-                    onChange: (index) {
-                      setState(() {
-                        userDp = userArtLinks[index];
-                      });
-                    },
-                    emptyIndicator: const Center(
-                      child: SpinKitFoldingCube(
-                        color: Color(0xFF8603F1),
-                        size: 50.0,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  child: GridView.builder(
+                      shrinkWrap: false,
+                      scrollDirection: Axis.vertical,
+                      itemCount: userArtLinks.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1,
                       ),
-                    ),
-                    widgets: userArtLinks
-                        .map((e) => ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.asset(
-                                "images/$e.png",
-                                fit: BoxFit.cover,
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedCard = index;
+                              userDp = userArtLinks[index];
+                            });
+                          },
+                          child: Card(
+                            shape: const CircleBorder(),
+                            // Check if the index is equal to the selected Card integer
+                            color: selectedCard == index
+                                ? Colors.white
+                                : Colors.transparent,
+                            child: Container(
+                              padding: const EdgeInsets.all(4.0),
+                              height: 200,
+                              width: 200,
+                              child: ClipOval(
+                                child: SizedBox.fromSize(
+                                  // Image radius
+                                  child: Image.asset(
+                                      'images/user_${userArtLinks[index]}.png',
+                                      fit: BoxFit.cover),
+                                ),
                               ),
-                            ))
-                        .toList()),
-              ),
-              //add button here
-
-              ElevatedButton(
-                onPressed: () async {
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  prefs.setString('userAvatar', userDp);
-
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const ChatScreen()));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  textStyle:
-                      const TextStyle(color: Colors.white, fontSize: 15.0),
+                            ),
+                          ),
+                        );
+                      }),
                 ),
-                child: const Text('Next'),
               ),
-              const SizedBox(
-                height: 20,
-              )
+              Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (selectedCard != -1) {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.setString('userAvatar', userDp.toString());
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const ChatScreen()));
+                    } else {
+                      Fluttertoast.showToast(
+                          msg: "Please choose an avatar to continue!",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                    backgroundColor:
+                        selectedCard == -1 ? Colors.black : Colors.deepPurple,
+                    textStyle:
+                        const TextStyle(color: Colors.black, fontSize: 15.0),
+                  ),
+                  child: Text(
+                    selectedCard == -1 ? 'CHOOSE AVATAR' : 'SET AVATAR',
+                    style: TextStyle(
+                        color: selectedCard == -1
+                            ? Colors.deepPurple
+                            : Colors.white,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
